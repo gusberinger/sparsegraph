@@ -115,4 +115,4 @@ class SparseGraph(Generic[T]):
         return self.labels[index]
 
     def to_networkx(self):
-        return nx.from_scipy_sparse_matrix(self.adjacency, create_using=nx.DiGraph)
+        return nx.from_scipy_sparse_array(self.adjacency, create_using=nx.DiGraph)
