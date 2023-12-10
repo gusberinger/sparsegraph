@@ -1,5 +1,5 @@
 import numpy as np
-from typing import Generic, List, TypeVar
+from typing import Generic, List, Literal, TypeVar
 from scipy import sparse
 import networkx as nx
 
@@ -10,6 +10,8 @@ class SparseGraph(Generic[T]):
     def __init__(self, adjacency: sparse.csr_matrix, labels: List[T]) -> None:
         self.size = adjacency.shape[0]
         self.adjacency = adjacency
+        self.indegree = adjacency.sum(axis=0)
+        self.outdegree = adjacency.sum(axis=1)
         if len(labels) != self.size:
             raise ValueError("Number of labels must match number of nodes in graph.")
         self.labels = labels
@@ -41,7 +43,7 @@ class SparseGraph(Generic[T]):
         return mat[mask][:, mask]
 
     def get_largest_component(
-        self, directed: bool = True, connection: str = "strong"
+        self, directed: bool = True, connection: Literal["strong", "weak"] = "strong"
     ) -> "SparseGraph":
         """
         Parameters
@@ -75,28 +77,11 @@ class SparseGraph(Generic[T]):
         subgraph = self.remove_indices(unconnected_indices)
         return subgraph
 
-    def compute_degree(self) -> None:
-        """
-        Fills in the degrees for self.in_degree and self.out_degree
-        """
-        self._in_degree = np.array(np.sum(self.adjacency, axis=0))[0]
-        self._out_degree = np.array(np.sum(self.adjacency, axis=1).transpose())[0]
-
     def in_degree(self, index: int) -> int:
-        if self._in_degree is None:
-            raise ValueError(
-                "Degrees not computed. Must call self.compute_degree on instance first."
-            )
-        else:
-            return self._in_degree[index]
+        return self.indegree[index]
 
     def out_degree(self, index: int) -> int:
-        if self._out_degree is None:
-            raise ValueError(
-                "Degrees not computed. Must call self.compute_degree on instance first."
-            )
-        else:
-            return self._out_degree[index]
+        return self.outdegree[index]
 
     def outgoing_neighbors(self, index: int) -> np.ndarray:
         nodes = self.adjacency[index, :].toarray()[0]
@@ -111,7 +96,7 @@ class SparseGraph(Generic[T]):
         new_labels = [label for i, label in enumerate(self.labels) if i not in indices]
         return SparseGraph(new_adjacency, new_labels)
 
-    def get_value(self, index: int) -> T:
+    def get_label(self, index: int) -> T:
         return self.labels[index]
 
     def to_networkx(self):
