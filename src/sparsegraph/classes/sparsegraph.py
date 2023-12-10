@@ -1,14 +1,13 @@
 import numpy as np
 from typing import Generic, List, Literal, TypeVar
 from scipy import sparse
-import networkx as nx
 
 T = TypeVar("T")
 
 
 class SparseGraph(Generic[T]):
     def __init__(self, adjacency: sparse.csr_matrix, labels: List[T]) -> None:
-        self.size = adjacency.shape[0]
+        self.size: int = adjacency.shape[0]
         self.adjacency = adjacency
         self.indegree = adjacency.sum(axis=0)
         self.outdegree = adjacency.sum(axis=1)
@@ -98,6 +97,3 @@ class SparseGraph(Generic[T]):
 
     def get_label(self, index: int) -> T:
         return self.labels[index]
-
-    def to_networkx(self):
-        return nx.from_scipy_sparse_array(self.adjacency, create_using=nx.DiGraph)

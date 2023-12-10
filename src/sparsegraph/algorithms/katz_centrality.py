@@ -1,4 +1,5 @@
 import numpy as np
+from tqdm import tqdm
 
 
 def katz_centrality(
@@ -8,27 +9,22 @@ def katz_centrality(
     max_iter: int = 10000,
     tol: float = 1.0e-6,
     normalized: bool = True,
+    verbose: bool = False,
 ):
     A = graph.adjacency.transpose()
     n = graph.size
     e = np.ones((n, 1))
     last = e.copy()
-    last_error = -float("inf")
-    for _ in range(max_iter):
+    for _ in tqdm(range(max_iter), disable=not verbose, total=None):
         current = alpha * A.dot(last) + beta * e
         error = sum((abs(current[i] - last[i]) for i in range(n)))
-        if error > last_error:
-            raise ValueError(f"Failed to converge in {max_iter} iterations.")
-        last_error = error
         if error < n * tol:
             centrality = current.flatten().tolist()
             if normalized:
                 norm = np.sign(sum(centrality)) * np.linalg.norm(centrality)
-                return map(float, centrality / norm)
+                return centrality / norm
             else:
                 return centrality
         last = current.copy()
 
-    centrality = current.flatten().tolist()
-    norm = np.sign(sum(centrality)) * np.linalg.norm(centrality)
-    return list(map(float, centrality / norm))
+    raise RuntimeError(f"Failed to converge after {max_iter} iterations.")
