@@ -4,6 +4,8 @@
 #
 #    pip-compile dev-requirements.in
 #
+coverage==7.3.2
+    # via -r dev-requirements.in
 iniconfig==2.0.0
     # via pytest
 networkx==3.2.1
