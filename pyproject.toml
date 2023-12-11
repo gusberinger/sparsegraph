@@ -1,0 +1,10 @@
+[project]
+version = "0.1.0"
+name = "sparsegraph"
+requires-python = '>=3.11'
+description = "A graph library built on top of SciPy sparse matrices."
+
+
+[[project.authors]]
+name = "Gus Beringer"
+email = "gusberinger@gmail.com"
