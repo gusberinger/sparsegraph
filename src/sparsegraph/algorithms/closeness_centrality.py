@@ -4,9 +4,11 @@ import numpy.typing as npt
 import random
 
 
-def closeness_centrality(graph: sg.SparseGraph, k: int) -> npt.NDArray[np.float64]:
+def estimate_closeness_centrality(
+    graph: sg.SparseGraph, k: int
+) -> npt.NDArray[np.float64]:
     """
-    Implements https://doi.org/10.48550/arXiv.cs/0009005
+    Implements https://doi.org/10.48550/arXiv.cs/0009005 Eppstein and Wang (2000)
     """
     n = graph.size
     total = np.zeros(n)

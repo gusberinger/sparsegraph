@@ -6,7 +6,10 @@ import sys
 
 def estimate_radius_and_diameter(graph: sg.SparseGraph, k: int) -> tuple[int, int]:
     """
-    Implements https://doi.org/10.1007/11764298_9
+    Implements https://doi.org/10.1007/11764298_9 Boitmanis et. al (2006)
+    :param graph: graph to estimate radius and diameter of
+    :param k: number of nodes to sample
+    :return: (radius, diameter)
     """
     n = graph.size
     distances = np.full(n, sys.maxsize, dtype=np.int64)
