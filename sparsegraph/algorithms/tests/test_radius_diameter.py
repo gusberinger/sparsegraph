@@ -3,7 +3,7 @@ import sparsegraph as sg
 import pytest
 
 
-class TestCentrality:
+class TestRadiusDiameter:
     testing_graphs = [
         nx.watts_strogatz_graph(100, 4, 0.05),
         nx.house_graph(),
@@ -18,3 +18,8 @@ class TestCentrality:
             nx_diameter = nx.diameter(nx_graph)
             pytest.approx(diameter, nx_diameter)
             pytest.approx(radius, nx_radius)
+
+            sg_radius = sg.alg.estimate_radius(sg_graph, 1000)
+            pytest.approx(sg_radius, nx_radius)
+            sg_diameter = sg.alg.estimate_diameter(sg_graph, 1000)
+            pytest.approx(sg_diameter, nx_diameter)
