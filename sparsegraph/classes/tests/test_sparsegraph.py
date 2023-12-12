@@ -1,3 +1,4 @@
+import numpy as np
 import pytest
 import sparsegraph as sg
 import networkx as nx
@@ -12,10 +13,10 @@ class TestSparseGraph:
     def test_get_largest_component_is_same_if_connected(self):
         graph = sg.generators.house_graph()
         largest = graph.get_largest_component()
-        pytest.approx(largest.adjacency.data, graph.adjacency.data)
-        pytest.approx(largest.adjacency.indices, graph.adjacency.indices)
-        pytest.approx(largest.adjacency.indptr, graph.adjacency.indptr)
-        pytest.approx(largest.labels, graph.labels)
+        assert np.all(largest.adjacency.data == graph.adjacency.data)
+        assert np.all(largest.adjacency.indices == graph.adjacency.indices)
+        assert np.all(largest.adjacency.indptr == graph.adjacency.indptr)
+        assert largest.labels == graph.labels
 
     def test_indegree(self):
         pass
