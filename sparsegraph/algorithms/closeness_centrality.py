@@ -5,7 +5,7 @@ import random
 
 
 def estimate_closeness_centrality(
-    graph: sg.SparseGraph, k: int
+    graph: sg.SparseGraph, *, k: int = 10**4
 ) -> npt.NDArray[np.float64]:
     """
     Implements https://doi.org/10.48550/arXiv.cs/0009005 Eppstein and Wang (2000)
