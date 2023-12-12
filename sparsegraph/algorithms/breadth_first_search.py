@@ -9,6 +9,15 @@ def distance_from(
 ) -> npt.NDArray[np.int64]:
     """
     Breadth first search to find the distance from a start node to all other nodes in the graph.
+
+    Parameters
+    ----------
+    graph:
+        A SparseGraph graph.
+    start_node_idx:
+        The index of the node to start the search from.
+    verbose:
+        If True, display a progress bar.
     """
     N = graph.adjacency.shape[0]
     predecessors = np.empty(N, dtype=int)
