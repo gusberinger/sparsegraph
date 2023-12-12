@@ -1,3 +1,5 @@
 pytest
 networkx
 coverage
+sphinx
+sphinx-rtd-theme
