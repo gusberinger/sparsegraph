@@ -1,9 +1,11 @@
 import numpy as np
 from tqdm import tqdm
+import sparsegraph as sg
 
 
 def katz_centrality(
-    graph,
+    graph: sg.SparseGraph,
+    *,
     alpha: float = 0.1,
     beta: float = 1,
     max_iter: int = 10000,
@@ -15,6 +17,7 @@ def katz_centrality(
     n = graph.size
     e = np.ones((n, 1))
     last = e.copy()
+
     for _ in tqdm(range(max_iter), disable=not verbose, total=None):
         current = alpha * A.dot(last) + beta * e
         error = sum((abs(current[i] - last[i]) for i in range(n)))
@@ -27,4 +30,6 @@ def katz_centrality(
                 return centrality
         last = current.copy()
 
-    raise RuntimeError(f"Failed to converge after {max_iter} iterations.")
+    raise RuntimeError(
+        f"Power iteration failed to converge after {max_iter} iterations"
+    )
