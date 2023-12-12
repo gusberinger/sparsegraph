@@ -13,7 +13,7 @@ def distance_from(
     Parameters
     ----------
     graph:
-        The sparse adjacency matrix of the graph.
+        A SparseGraph graph.
     start_node_idx:
         The index of the node to start the search from.
     verbose:

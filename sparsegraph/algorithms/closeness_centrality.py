@@ -14,7 +14,7 @@ def estimate_closeness_centrality(
     Parameters
     ----------
     graph:
-        The sparse adjacency matrix of the graph.
+        A SparseGraph graph.
     k:
         The number of random starting points to use. A larger value will produce a more accurate estimate.
 

@@ -16,7 +16,7 @@ def betweenness_centrality(
     Parameters
     ----------
     graph:
-        The sparse adjacency matrix of the graph.
+        A SparseGraph graph.
 
     normalized:
         If ``True`` the centrality scores are normalized.

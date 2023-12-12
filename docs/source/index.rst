@@ -1,20 +1,25 @@
-.. SparseGraph documentation master file, created by
-   sphinx-quickstart on Tue Dec 12 00:50:29 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Installation
+============
+.. code-block:: bash
 
-Welcome to SparseGraph's documentation!
-=======================================
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    pip install sparsegraph
 
 
+Classes
+=======
+.. autoclass:: sparsegraph.SparseGraph
+   :members:
+   :undoc-members:
 
-Indices and tables
-==================
+Algorithms
+==========
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. autofunction:: sparsegraph.alg.distance_from
+
+.. autofunction:: sparsegraph.alg.katz_centrality
+
+.. autofunction:: sparsegraph.alg.betweenness_centrality
+
+.. autofunction:: sparsegraph.alg.estimate_closeness_centrality
+
+.. autofunction:: sparsegraph.alg.estimate_radius_and_diameter

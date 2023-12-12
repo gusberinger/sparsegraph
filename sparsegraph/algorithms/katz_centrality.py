@@ -19,7 +19,7 @@ def katz_centrality(
     Parameters
     ----------
     graph:
-        The sparse adjacency matrix of the graph.
+        A SparseGraph graph.
     alpha:
         The attenuation factor. The attenuation factor must satisfy :math:`\alpha < \frac{1}{\max(\lambda_1, \dots, \lambda_n)}` or the algorithm will not converge.
     beta:
