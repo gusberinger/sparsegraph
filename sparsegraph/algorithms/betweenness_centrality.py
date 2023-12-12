@@ -10,9 +10,23 @@ def betweenness_centrality(
     normalized=False,
     verbose=False,
 ):
-    """
-    Implements Brande's algorithm
-    https://doi.org/10.1080/0022250X.2001.9990249
+    r"""
+    Finds the betweenness centrality defined by :math:`C_{\textrm{betweenness}}(i) = \sum_{s \neq i \neq t} \frac{\sigma_{st}(i)}{\sigma_{st}}` where :math:`\sigma_{st}` is the number of shortest paths from :math:`s` to :math:`t` and :math:`\sigma_{st}(i)` is the number of shortest paths from :math:`s` to :math:`t` that pass through :math:`i`.
+
+    Parameters
+    ----------
+    graph:
+        A SparseGraph graph.
+
+    normalized:
+        If ``True`` the centrality scores are normalized.
+    
+    verbose:
+        If ``True`` a progress bar is displayed during the power iteration.
+
+    References
+    ----------
+    Brandes (2000). A faster algorithm for betweenness centrality, https://doi.org/10.1080/0022250X.2001.9990249.
     """
     indices = graph.adjacency.indices
     indptr = graph.adjacency.indptr

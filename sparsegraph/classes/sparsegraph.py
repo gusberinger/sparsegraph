@@ -47,24 +47,13 @@ class SparseGraph(Generic[T]):
         """
         Parameters
         ---
-        matrix:
-            The sparse adjacency matrix of the graph.
-        labels:
-            The labels of each node in the graph.
-            The index of the list corresponds to the index in the adjacency matrix.
-        direct:
+        directed:
             If ``True`` the graph is treated as directed.
         connection:
             If ``"strong"``, the connected components will all be strongly connected together.
             If ``"weak"`` the connected components will be weakly connected.
-            If ``directed == False`` the parameter is ignored.
+            If ``directed == False`` the parameter is ignored and the graph will be treated as strongly connected.
 
-        Returns
-        ---
-        sub_matrix:
-            The sparse adjacency matrix of the largest strongly connected subgraph.
-        sub_labels:
-            The labels of each node in the subgraph.
         """
         _, component_labels = sparse.csgraph.connected_components(
             self.adjacency, directed=directed, connection=connection

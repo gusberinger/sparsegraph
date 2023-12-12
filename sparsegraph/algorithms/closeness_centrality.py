@@ -7,8 +7,20 @@ import random
 def estimate_closeness_centrality(
     graph: sg.SparseGraph, *, k: int = 10**4
 ) -> npt.NDArray[np.float64]:
-    """
-    Implements https://doi.org/10.48550/arXiv.cs/0009005 Eppstein and Wang (2000)
+    r"""
+    Finds an estimate of closeness centrality defined by :math:`C_{\textrm{closeness}}(v) = \frac{n-1}{\sum_{u}d(u,v)}.`
+    where :math:`d(u,v)` is the shortest path distance between :math:`u` and :math:`v`.
+
+    Parameters
+    ----------
+    graph:
+        A SparseGraph graph.
+    k:
+        The number of random starting points to use. A larger value will produce a more accurate estimate.
+
+    References
+    ----------
+    Eppstein and Wang (2000). Fast approximation of centrality. https://doi.org/10.48550/arXiv.cs/0009005
     """
     n = graph.size
     total = np.zeros(n)
