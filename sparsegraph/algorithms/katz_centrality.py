@@ -14,7 +14,7 @@ def katz_centrality(
     verbose: bool = False,
 ):
     r"""
-    Implements Katz centrality defined by :math:`C_{\textrm{Katz}}(i)  = \sum_j  (I_{ij} + \alpha A_{ij} + \alpha^2 A_{ij}^2 + \alpha^3 A_{ij}^3 + \dots)`
+    Find Katz centrality defined by :math:`C_{\textrm{Katz}}(i)  = \sum_j  (I_{ij} + \alpha A_{ij} + \alpha^2 A_{ij}^2 + \alpha^3 A_{ij}^3 + \dots)`
 
     Parameters
     ----------
