@@ -11,11 +11,17 @@ def estimate_radius_and_diameter(
     graph: sg.SparseGraph, *, k: int = DEFAULT_K, verbose: bool = False
 ) -> tuple[int, int]:
     """
-    Implements https://doi.org/10.1007/11764298_9 Boitmanis et. al (2006)
-    :param graph: graph to estimate radius and diameter of
-    :param k: number of nodes to sample
+    Estimates the radius and diameter of a graph by iteratively sampling nodes and running a breadth first search from the furthest node.
+    
+    :param graph: A SparseGraph graph.
+    :param k: The number of nodes to sample.
     :return: (radius, diameter)
+
+    References
+    ----------
+    Boitmanis et. al (2006). Fast and Simple Approximation of the Diameter and Radius of a Graph. https://doi.org/10.1007/11764298_9 
     """
+    # Implements https://doi.org/10.1007/11764298_9 Boitmanis et. al (2006)
     n = graph.size
     distances = np.full(n, sys.maxsize, dtype=np.int64)
     diameter_estimate = -sys.maxsize
