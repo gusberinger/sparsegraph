@@ -4,7 +4,12 @@ import sparsegraph as sg
 from collections import deque
 
 
-def betweenness_centrality(graph: sg.SparseGraph, *, verbose = False):
+def betweenness_centrality(
+    graph: sg.SparseGraph,
+    *,
+    normalized=False,
+    verbose=False,
+):
     """
     Implements Brande's algorithm
     https://doi.org/10.1080/0022250X.2001.9990249
@@ -13,7 +18,7 @@ def betweenness_centrality(graph: sg.SparseGraph, *, verbose = False):
     indptr = graph.adjacency.indptr
     size = graph.adjacency.shape[0]
     scores = np.zeros(size)
-    
+
     for s in tqdm(range(size), disable=not verbose):
         S = []
         P = [[] for _ in range(size)]
@@ -26,14 +31,13 @@ def betweenness_centrality(graph: sg.SparseGraph, *, verbose = False):
         while Q:
             v = Q.popleft()
             S.append(v)
-            for w in indices[indptr[v]:indptr[v+1]]:
+            for w in indices[indptr[v] : indptr[v + 1]]:
                 if d[w] < 0:
                     Q.append(w)
                     d[w] = d[v] + 1
                 if d[w] == d[v] + 1:
                     sigma[w] += sigma[v]
                     P[w].append(v)
-
 
         delta = np.zeros(size)
         while S:
@@ -42,5 +46,11 @@ def betweenness_centrality(graph: sg.SparseGraph, *, verbose = False):
                 delta[v] = delta[v] + sigma[v] / sigma[w] * (1 + delta[w])
             if w != s:
                 scores[w] += delta[w]
-    
-    return scores / 2
+
+    scores /= 2
+
+    if normalized:
+        denom = size * (size - 1)
+        scores /= denom
+    else:
+        return scores
