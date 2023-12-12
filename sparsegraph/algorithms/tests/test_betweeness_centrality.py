@@ -17,3 +17,11 @@ class TestBetweennessCentrality:
             nx_values = nx.betweenness_centrality(nx_graph, normalized=False).values()
             for sg_val, nx_val in zip(sg_values, nx_values):
                 assert sg_val == pytest.approx(nx_val)
+
+    def test_betweenness_centrality_normalized(self):
+        for nx_graph in self.testing_graphs:
+            sg_graph = sg.from_networkx(nx_graph)
+            sg_values = sg.alg.betweenness_centrality(sg_graph, normalized=True)
+            nx_values = nx.betweenness_centrality(nx_graph, normalized=True).values()
+            for sg_val, nx_val in zip(sg_values, nx_values):
+                assert sg_val == pytest.approx(nx_val)

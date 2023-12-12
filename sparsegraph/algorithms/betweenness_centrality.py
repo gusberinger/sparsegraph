@@ -50,7 +50,6 @@ def betweenness_centrality(
     scores /= 2
 
     if normalized:
-        denom = size * (size - 1)
-        scores /= denom
+        return (scores / ((size - 1) * (size - 2))) * 2
     else:
         return scores
